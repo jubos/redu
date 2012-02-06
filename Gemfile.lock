@@ -1,0 +1,30 @@
+PATH
+  remote: .
+  specs:
+    redu (0.0.3)
+      algorithms
+      progressbar
+      redis (>= 2.2.2)
+      terminal-table
+      thor (>= 0.14.6)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    algorithms (0.3.0)
+    progressbar (0.10.0)
+    redis (2.2.2)
+    terminal-table (1.4.4)
+    thor (0.14.6)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  algorithms
+  bundler (>= 1.0.0)
+  progressbar
+  redis (>= 2.2.2)
+  redu!
+  terminal-table
+  thor (>= 0.14.6)

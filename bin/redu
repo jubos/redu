@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require 'redu/cli'
+Redu::CLI.start

@@ -1,0 +1,1 @@
+require 'redu/version'
