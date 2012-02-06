@@ -168,25 +168,28 @@ module Redu
     end
 
     def analyze_key(key)
-      obj_str = @redis.debug("OBJECT", key)
+      begin
+        obj_str = @redis.debug("OBJECT", key)
 
-      rdo = RedisDebugObject.initialize_from_string(key,obj_str)
-      
-      prefix_str = derive_prefix(key)
-      if prefix_str
-        prefix = @prefixes[prefix_str]
-        if !prefix
-          prefix = KeyPrefix.new
-          prefix.count = 1
-          prefix.bytesize = rdo.bytesize
-          @prefixes[prefix_str] = prefix
-        else
-          prefix.count += 1
-          prefix.bytesize += rdo.bytesize
+        rdo = RedisDebugObject.initialize_from_string(key,obj_str)
+
+        prefix_str = derive_prefix(key)
+        if prefix_str
+          prefix = @prefixes[prefix_str]
+          if !prefix
+            prefix = KeyPrefix.new
+            prefix.count = 1
+            prefix.bytesize = rdo.bytesize
+            @prefixes[prefix_str] = prefix
+          else
+            prefix.count += 1
+            prefix.bytesize += rdo.bytesize
+          end
         end
+
+        @worst_offender_set.add(rdo)
+      rescue # Many times a key will be gone by the time we get to it in the array
       end
-      
-      @worst_offender_set.add(rdo)
     end
   end
 end
